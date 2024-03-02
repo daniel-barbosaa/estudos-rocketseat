@@ -4,5 +4,9 @@ import './styles/global.scss'
 
 export function App () {
   
-    return <RespositoryList></RespositoryList>
+    return (
+        <>
+         <RespositoryList/>
+        </>
+    )
 }
