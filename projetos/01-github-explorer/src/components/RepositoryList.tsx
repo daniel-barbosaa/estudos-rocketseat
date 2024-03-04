@@ -4,8 +4,14 @@ import { useEffect, useState } from "react";
 
 //https://api.github.com/users/daniel-barbosaa/repos
 
+interface Repository {
+    name: string,
+    description: string,
+    html_url: string
+}
+
 export function RespositoryList () {
-    const [repositories, setRepositories] = useState([])
+    const [repositories, setRepositories] = useState<Repository[]>([])
 
     useEffect(() => {
         fetch('https://api.github.com/users/daniel-barbosaa/repos').then(response => response.json()).then(data => {
