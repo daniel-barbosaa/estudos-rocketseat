@@ -17,6 +17,7 @@ createServer({
           title: "Freelancer",
           type: 'deposit',
           amount: 6000,
+          category: 'Dev',
           createdAt: new Date('2024-03-25 09:00:00')
         },
         {
@@ -24,6 +25,7 @@ createServer({
           title: "IPVA",
           type: 'withdraw',
           amount: 4000,
+          category: 'Carro',
           createdAt: new Date('2024-02-11 10:00:00')
         }
       ]
