@@ -8,17 +8,19 @@ import CloseImg from '../../assets/close.svg'
 import incomeImg from '../../assets/income.svg'
 import outcomeImg from '../../assets/outcome.svg'
 
-interface NewTransactionModalProps {
+interface EditTransactionModalProps {
     isOpen: boolean,
     onRequestClose: () => void
 }
 
-export function NewTransactionModal({isOpen, onRequestClose}: NewTransactionModalProps) {
+export function EditTransactionModal({isOpen, onRequestClose}: EditTransactionModalProps) {
+
     const {createTransaction} = useTransactions()
     const [type, setType] = useState("deposit")
     const [title, setTitle] = useState('')
     const [category, setCategory] = useState('')
     const [amount, setAmount] = useState(0)
+
 
     async function handleCreateNewTransaction (event:FormEvent) {
         event.preventDefault();
@@ -52,7 +54,7 @@ export function NewTransactionModal({isOpen, onRequestClose}: NewTransactionModa
                 <img src={CloseImg} alt="Fechar Modal" />
             </button>
             <Container onSubmit={handleCreateNewTransaction}>
-                <h2>Cadastrar transação</h2>
+                <h2>Editar transação</h2>
                 <input placeholder='Titulo' value={title}
                 onChange={event => setTitle(event.target.value)}
                 />

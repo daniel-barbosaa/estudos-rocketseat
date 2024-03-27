@@ -1,12 +1,15 @@
-import { useContext } from "react";
 import { Container } from "./styles";
-import { TransactionsContext } from "../../TransactionsContext";
 
-export function TransactionTable () {
+import editImg from '../../assets/Edit.svg'
 
-    const {transactions} = useContext(TransactionsContext)
+import { useTransactions } from "../../hooks/useTransactions";
 
-    console.log(transactions)
+interface TransactionTableProps {
+    onOpenEditTransactionModal: () => void
+}
+
+export function TransactionTable ( {onOpenEditTransactionModal}: TransactionTableProps ) {
+    const {transactions} = useTransactions()
 
     return (
         <Container>
@@ -31,6 +34,7 @@ export function TransactionTable () {
                         <td>{new Intl.DateTimeFormat('pr-BR').format(
                             new Date(transaction.createdAt)
                         )}</td>
+                        <td><button onClick={onOpenEditTransactionModal} type="button"><img src={editImg} alt="Editar"/></button></td>
                     </tr>
                     )
                   )}
