@@ -1,6 +1,8 @@
-import { useState, FormEvent } from 'react'
+import { useState, FormEvent, useEffect } from 'react'
 import { useTransactions } from '../../hooks/useTransactions'
 import Modal from 'react-modal'
+
+import { api } from '../../services/api'
 
 import { Container, TransactionTypeContainer, RadioBox } from './styles'
 
@@ -38,6 +40,15 @@ export function EditTransactionModal({isOpen, onRequestClose}: EditTransactionMo
         setAmount(0)
         onRequestClose()
     }
+
+    async function editTransaction () {
+
+        await api.put('transactions/1').then(response => console.log(response.data))
+       
+    }
+   
+       
+   
 
     return (
         <Modal 
@@ -87,7 +98,7 @@ export function EditTransactionModal({isOpen, onRequestClose}: EditTransactionMo
                 </TransactionTypeContainer>
 
                 <input type="text" placeholder='Categoria' value={category} onChange={event => setCategory(event.target.value)} />
-                <button type="submit">Cadastrar</button>
+                <button type="submit" onClick={editTransaction}>Editar</button>
             </Container>
         </Modal>
     )

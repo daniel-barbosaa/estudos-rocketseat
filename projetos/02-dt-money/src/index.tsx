@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import {Model, createServer} from 'miragejs'
+import {Factory, Model, createServer} from 'miragejs'
 
 createServer({
- 
+
   models: {
     transaction: Model
   },
@@ -44,6 +44,13 @@ createServer({
         const data = JSON.parse(request.requestBody)
 
         return schema.create('transaction', data)
+    })
+
+    this.put('/transactions', (schema, request) => {
+      const id = request.params.id 
+
+      return // Buscar a transação por id na tabela de transactions...
+
     })
   }
 })
