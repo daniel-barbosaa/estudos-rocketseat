@@ -9,7 +9,9 @@ interface TransactionTableProps {
 }
 
 export function TransactionTable ( {onOpenEditTransactionModal}: TransactionTableProps ) {
-    const {transactions} = useTransactions()
+    const {transactions, receiveTransactionId, transactionId} = useTransactions()
+
+    console.log(transactionId)
 
     return (
         <Container>
@@ -34,7 +36,10 @@ export function TransactionTable ( {onOpenEditTransactionModal}: TransactionTabl
                         <td>{new Intl.DateTimeFormat('pr-BR').format(
                             new Date(transaction.createdAt)
                         )}</td>
-                        <td><button onClick={onOpenEditTransactionModal} type="button"><img src={editImg} alt="Editar"/></button></td>
+                        <td><button onClick={() => {
+                            onOpenEditTransactionModal()
+                            receiveTransactionId(transaction.id)
+                        }} type="button"><img src={editImg} alt="Editar"/></button></td>
                     </tr>
                     )
                   )}

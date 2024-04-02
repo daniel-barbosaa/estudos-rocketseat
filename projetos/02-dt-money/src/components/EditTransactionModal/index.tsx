@@ -17,48 +17,30 @@ interface EditTransactionModalProps {
 
 export function EditTransactionModal({isOpen, onRequestClose}: EditTransactionModalProps) {
 
-    const {createTransaction, transactions} = useTransactions()
+    const {editTransaction} = useTransactions()
     const [type, setType] = useState("deposit")
     const [title, setTitle] = useState('')
     const [category, setCategory] = useState('')
     const [amount, setAmount] = useState(0)
 
 
-    async function handleCreateNewTransaction (event:FormEvent) {
+    async function handleEditTransaction (event:FormEvent) {
         event.preventDefault();
-
-        await createTransaction({
-            title,
-            amount,
-            category,
-            type
-        })
-
+       
         setType('')
         setTitle('')
         setCategory('')
         setAmount(0)
         onRequestClose()
+
+        await editTransaction({
+            title,
+            amount,
+            category,
+            type
+        })
     }
 
-   
-
-    async function editTransaction () {
-
-        await api.patch('transactions/1', {
-            title: "Atualizado",
-            type: 'Atualizado',
-            amount: 1000,
-            category: 'Dev',
-            createdAt: new Date()
-        }).then(response => console.log(response.data))
-        console.log(transactions)
-    // Agora é passar os dados no corpo da requisição de forma dinamica e atualizar o estado recebendo o array com as novas transaction
-
-    // Crie essa função lá no hooksTransactions
-    }
-   
-       
    
 
     return (
@@ -75,7 +57,7 @@ export function EditTransactionModal({isOpen, onRequestClose}: EditTransactionMo
             >
                 <img src={CloseImg} alt="Fechar Modal" />
             </button>
-            <Container onSubmit={handleCreateNewTransaction}>
+            <Container onSubmit={handleEditTransaction}>
                 <h2>Editar transação</h2>
                 <input placeholder='Titulo' value={title}
                 onChange={event => setTitle(event.target.value)}
@@ -109,7 +91,7 @@ export function EditTransactionModal({isOpen, onRequestClose}: EditTransactionMo
                 </TransactionTypeContainer>
 
                 <input type="text" placeholder='Categoria' value={category} onChange={event => setCategory(event.target.value)} />
-                <button type="submit" onClick={editTransaction}>Editar</button>
+                <button type="submit" onClick={handleEditTransaction}>Editar</button>
             </Container>
         </Modal>
     )

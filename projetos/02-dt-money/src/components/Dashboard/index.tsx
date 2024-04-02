@@ -18,7 +18,7 @@ export function Dashboard () {
         <Container>
             <Summary/>
             <TransactionTable onOpenEditTransactionModal={handleOpenEditTransactionModal}/>
-            <EditTransactionModal isOpen={isEditTransactionModalOpen} onRequestClose={handleCloseEditTransactionModal}/>
+            <EditTransactionModal isOpen={isEditTransactionModalOpen} onRequestClose={handleCloseEditTransactionModal} />
         </Container>
     )
 }
