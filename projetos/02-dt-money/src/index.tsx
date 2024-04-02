@@ -36,8 +36,8 @@ createServer({
   routes () {
     this.namespace = "api"
 
-    this.get('/transactions', () => {
-      return this.schema.all('transaction')
+    this.get('/transactions', (schema) => {
+      return schema.all('transaction')
     })
 
     this.post('/transactions', (schema, request) => {
@@ -46,11 +46,28 @@ createServer({
         return schema.create('transaction', data)
     })
 
-    this.put('/transactions', (schema, request) => {
-      const id = request.params.id 
+    interface Transaction {
+      id: number,
+      title: string,
+      amount: number,
+      type: string,
+      category: string
+      createdAt: string
+  
+  }
 
-      return // Buscar a transação por id na tabela de transactions...
+    this.patch('/transactions/:id', (schema, request) => {
+      const id = JSON.parse(request.params.id)
+      const attrs = JSON.parse(request.requestBody) as Partial<Transaction>
 
+      let findItemThisId = schema.find('transaction', id)
+
+      if(findItemThisId){
+        findItemThisId.update(attrs)
+        return schema.all('transaction')
+      }else {
+        return {error: 'Esse id não corresponde a uma transação no banco de dados!'}
+      } 
     })
   }
 })

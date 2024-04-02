@@ -45,8 +45,6 @@ export function TransactionsProvider ({children}: TransactionsProviderProps) {
         ...transactions,
         transaction
        ])
-
-      
     }
 
     return (

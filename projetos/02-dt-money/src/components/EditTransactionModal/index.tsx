@@ -1,4 +1,4 @@
-import { useState, FormEvent, useEffect } from 'react'
+import { useState, FormEvent } from 'react'
 import { useTransactions } from '../../hooks/useTransactions'
 import Modal from 'react-modal'
 
@@ -17,7 +17,7 @@ interface EditTransactionModalProps {
 
 export function EditTransactionModal({isOpen, onRequestClose}: EditTransactionModalProps) {
 
-    const {createTransaction} = useTransactions()
+    const {createTransaction, transactions} = useTransactions()
     const [type, setType] = useState("deposit")
     const [title, setTitle] = useState('')
     const [category, setCategory] = useState('')
@@ -41,10 +41,21 @@ export function EditTransactionModal({isOpen, onRequestClose}: EditTransactionMo
         onRequestClose()
     }
 
+   
+
     async function editTransaction () {
 
-        await api.put('transactions/1').then(response => console.log(response.data))
-       
+        await api.patch('transactions/1', {
+            title: "Atualizado",
+            type: 'Atualizado',
+            amount: 1000,
+            category: 'Dev',
+            createdAt: new Date()
+        }).then(response => console.log(response.data))
+        console.log(transactions)
+    // Agora é passar os dados no corpo da requisição de forma dinamica e atualizar o estado recebendo o array com as novas transaction
+
+    // Crie essa função lá no hooksTransactions
     }
    
        
