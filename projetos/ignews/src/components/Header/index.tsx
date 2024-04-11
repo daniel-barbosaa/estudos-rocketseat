@@ -5,6 +5,8 @@ import styles from './style.module.scss'
 import { SignButton } from '../SingInButton'
 
 export function Header () {
+
+
     return (
         <header className={styles.headerContainer}>
             <div className={styles.headerContent}>

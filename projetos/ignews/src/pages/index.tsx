@@ -1,4 +1,4 @@
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 
 import Head from 'next/head'
 import sytles from './home.module.scss'
@@ -33,8 +33,15 @@ export default function Home({product}: HomeProps) {
   );
 }
 
+// 3 formas principais de fazer uma chamada a API, com next
 
-export const getServerSideProps: GetServerSideProps = async () => {
+// Client-side
+// Server-side
+// Static Site Generation 
+
+
+
+export const getStaticProps: GetStaticProps = async () => {
 
   const price = await stripe.prices.retrieve('price_1P47zhAuruhV4Wv0zBKyDIMv')
 
@@ -51,6 +58,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {
       product
-    }
+    },
+    revalidate: 60 * 60 * 24, // 24 horas
   }
 }
