@@ -5,8 +5,6 @@ import { SessionProvider as NextAuthProvider } from "next-auth/react"
 
 
 export default function App({ Component, pageProps }: AppProps) {
-
-  console.log(pageProps.session)
   return (
     <NextAuthProvider session={pageProps.session}>
       <Header/>
