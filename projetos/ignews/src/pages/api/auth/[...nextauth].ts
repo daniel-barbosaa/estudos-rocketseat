@@ -24,26 +24,40 @@ export const authOptions = {
   ],
 
   callbacks: {
+   
     async signIn({ user }: { user: User }) {
-
-      console.log(user)
-      const {email} = user
-
+      
       try {
-        await fauna.query(
-          q.Create(
-            q.Collection('users'),
-            {data: {email} }
-          )
-        )
-        return true
-      }catch {
-        return false
+        const { email } = user;
+        q.Create(
+              q.Collection('users'),
+              {data: {email} }
+            )
+
+        return true;
+      } catch (error) {
+        return false;
       }
-     
     }
-  }
+  } 
 }
+
+// q.If(
+//   q.Not(
+//     q.Exists(
+//       q.Ref(q.Collection('users'),user.email)),
+//   ),
+//   q.Create(
+//     q.Collection('users'),
+//     {data: {email} }
+//   ), 
+//   q.Get( // Senão
+//     q.Match(
+//       q.Index('user_by_email'),
+//       q.Casefold(user.email)
+//     )
+//   )
+// )
 
 
 export default NextAuth(authOptions)
