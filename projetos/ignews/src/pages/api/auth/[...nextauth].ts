@@ -24,19 +24,40 @@ export const authOptions = {
   ],
 
   callbacks: {
-   
     async signIn({ user }: { user: User }) {
-      
-      try {
-        const { email } = user;
-        q.Create(
-              q.Collection('users'),
-              {data: {email} }
-            )
+      console.log(user)
 
-        return true;
-      } catch (error) {
-        return false;
+      try {
+
+        const { email } = user;
+
+        if (!user.email) {
+          throw new Error("O email do usuário não está disponível.");
+        }
+
+        const userEmail = user.email.toLowerCase();
+
+        const userExists = await fauna.query(
+          q.Exists(
+            q.Match(
+              q.Index('user_by_email'),
+              userEmail
+            )
+          )
+        )
+
+        if (!userExists) {
+          await fauna.query(
+            q.Create(
+              q.Collection('users'),
+              { data: { email: userEmail } }
+            )
+          );
+        }
+
+        return true
+      } catch {
+        return false
       }
     }
   } 
