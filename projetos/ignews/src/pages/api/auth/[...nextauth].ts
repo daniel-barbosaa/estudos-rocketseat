@@ -4,7 +4,7 @@ import { User } from "next-auth"
 import NextAuth from "next-auth"
 import GithubProvider from "next-auth/providers/github"
 import {fauna} from '../../../services/fauna'
-import { signIn } from 'next-auth/react'
+
 
 
 export const authOptions = {
