@@ -17,13 +17,16 @@ const Subscribe =  async (req: NextApiRequest, resp: NextApiResponse) => {
     if (req.method === 'POST') {
         let session = await getSession({req})
 
+        // Aguardando até encontrar o user.email e reatribuindo seu valor quando encontrar
         while (!session || !session.user || !session.user.email) {
             await new Promise(resolve => setTimeout(resolve, 100));
             session = await getSession({ req });
         }
 
+
         const email = session.user.email;
 
+        //Buscando usuário no banco com esse email
         const user = await fauna.query<User>(
             q.Get(
                 q.Match(
@@ -33,8 +36,10 @@ const Subscribe =  async (req: NextApiRequest, resp: NextApiResponse) => {
             )
         )
 
+        // Pegando o customerId no banco do usuário
         let customerId = user.data.stripe_customer_id
 
+        // Se não existe um usuário com este customerId, então cria ele no Stripe e atualiza o customer_id do banco com o id do stripe 
         if(!customerId){
             const stripeCustomer = await stripe.customers.create({
                 email: email
@@ -49,7 +54,7 @@ const Subscribe =  async (req: NextApiRequest, resp: NextApiResponse) => {
                     }
                 )
             )
-
+            
             customerId = stripeCustomer.id
         }
 
