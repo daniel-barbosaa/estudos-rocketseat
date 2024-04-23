@@ -23,7 +23,6 @@ const Subscribe =  async (req: NextApiRequest, resp: NextApiResponse) => {
             session = await getSession({ req });
         }
 
-
         const email = session.user.email;
 
         //Buscando usuário no banco com esse email
@@ -37,19 +36,22 @@ const Subscribe =  async (req: NextApiRequest, resp: NextApiResponse) => {
         )
 
         // Pegando o customerId no banco do usuário
-        let customerId = user.data.stripe_customer_id
+        let customerId = user.data.stripe_customer_id 
 
-        // Se não existe um usuário com este customerId, então cria ele no Stripe e atualiza o customer_id do banco com o id do stripe 
+        console.log(customerId)
+
+        // Se não existe um usuário com este customerId, então cria um no Stripe e atualiza o customerId do banco com o customerId do stripe 
         if(!customerId){
             const stripeCustomer = await stripe.customers.create({
                 email: email
             });
+            
             await fauna.query(
                 q.Update(
                     q.Ref(q.Collection('users'), user.ref.id),
                     {
                         data: {
-                            stripe_costumer_id: stripeCustomer.id
+                            stripe_customer_id: stripeCustomer.id
                         }
                     }
                 )
@@ -72,8 +74,6 @@ const Subscribe =  async (req: NextApiRequest, resp: NextApiResponse) => {
             allow_promotion_codes: true,
             success_url: process.env.STRIPE_SUCCESS_URL,
             cancel_url: process.env.STRIPE_CANCEL_URL
-            
-
         })
 
         return resp.status(200).json({sessionId: stripeCheckoutSession.id})
