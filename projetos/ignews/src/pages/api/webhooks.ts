@@ -24,7 +24,9 @@ export const config = {
 }
 
 const relevantsEvents  = new Set([
-    'checkout.session.completed'
+    'checkout.session.completed',
+    'customer.subscription.updated',
+    'customer.subscription.deleted',
 ])
 
 
@@ -48,15 +50,23 @@ export const webHooks = async (req: NextApiRequest, resp: NextApiResponse) => {
     if(relevantsEvents.has(type)) {
         try {
             switch ( type ) {
-                case 'checkout.session.completed': 
+                case 'customer.subscription.updated':
+                case 'customer.subscription.deleted':
 
-                const checkoutSession = event.data.object as Stripe.Checkout.Session 
-
-                
-
+                    const subscription = event.data.object as Stripe.Subscription
                     await saveSubscription(
-                        checkoutSession.subscription?.toString(),
-                        checkoutSession.customer?.toString() 
+                        subscription.id,
+                        subscription.customer.toString(),
+                        false
+                    )
+                break;
+
+                case 'checkout.session.completed': 
+                const checkoutSession = event.data.object as Stripe.Checkout.Session 
+                    await saveSubscription(
+                        checkoutSession.subscription?.toString() ?? '',
+                        checkoutSession.customer?.toString() ?? '',
+                        true
                     )
                   break;  
                   default: throw new Error('Unhandled event.')
