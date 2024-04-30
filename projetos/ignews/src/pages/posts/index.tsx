@@ -1,8 +1,14 @@
 import Head from 'next/head'
 import style from './style.module.scss'
 
+import { createClient } from '../../services/prismicio'
+import { GetStaticProps } from 'next'
 
-export default function Posts() {
+
+export default  function Posts() {
+
+    
+    
     return(
         <>
          <Head>
@@ -39,4 +45,18 @@ export default function Posts() {
          </main>
         </>
     )
+}
+
+export const getStaticProps: GetStaticProps = async ()  => {
+    const prismic = createClient()
+
+    //Buscando os dados da API, com base no documento publication
+    const response = await prismic.getAllByType('publication')
+    console.log(JSON.stringify(response, null, 2))
+
+    return {
+        props: {
+
+        }
+    }
 }
