@@ -4,6 +4,7 @@ import style from './style.module.scss'
 import { createClient } from '../../services/prismicio'
 import { GetStaticProps } from 'next'
 import { RichText } from 'prismic-dom'
+import Link from 'next/link'
 
 type Post = {
     slug: string;
@@ -17,6 +18,7 @@ interface PostsProps {
 }
 
 export default  function Posts({posts}: PostsProps) {
+
     
     return(
         <>
@@ -26,13 +28,15 @@ export default  function Posts({posts}: PostsProps) {
          <main className={style.container}>
             <div className={style.post_list}>
                {posts.map(post => (
-                 <a href="#" key={post.slug}>
+                <Link  href={`/posts/${post.slug}`} key={post.slug} legacyBehavior>
+                 <a >
                  <time>
                      {post.updatedAt}
                  </time>
                  <strong>{post.title}</strong>
                  <p>{post.excerpt}</p>
              </a>
+             </Link>
                ))}
                 </div>
          </main>
@@ -45,7 +49,6 @@ export const getStaticProps: GetStaticProps = async ()  => {
 
     //Buscando os dados da API, com base no documento publication
     const response = await prismic.getAllByType('publication')
-    console.log(JSON.stringify(response, null, 2))
 
     const posts = response.map(post => {
 
