@@ -17,8 +17,6 @@ interface PostsProps {
 }
 
 export default  function Posts({posts}: PostsProps) {
-
-    console.log(posts)
     
     return(
         <>
