@@ -5,6 +5,7 @@ import { RichText } from "prismic-dom"
 import Head from "next/head"
 import styles from './post.module.scss'
 
+
 interface PostProps  {
   post: {
     slug: string,
@@ -37,38 +38,68 @@ export default function Post ({post}: PostProps) {
 }
 
 
-export const getServerSideProps: GetServerSideProps = async ({req, params}) => {
-    const session = await getSession({req})
+export const getServerSideProps: GetServerSideProps = async ({ req, params }) => {
+  const session = (await getSession({ req })) ?? {}
 
-    if (!params || !params.slug) {
+  if ('activeSubscription' in session) {
+    try{
+      if(!session.activeSubscription){
         return {
-            notFound: true, 
-        };
-    }
-    const {slug} = params 
-
-
-    const prismic = createClient(req)
-
-    const response = await prismic.getByUID('publication', String(slug), {})
-
-
-
-   const post = {
-        slug,
-        title: RichText.asText(response.data.title),
-        content: RichText.asHtml(response.data.content),
-        updatedAt: new Date(response.last_publication_date).toLocaleDateString('pt-BR', {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric'
-        })  
-   }
-
-    return {
-        props: {
-           post
+          redirect: {
+            destination: '/',
+            permanent: false
+          }
         }
+      }
+    }catch{
+      return {
+        notFound: true,
+      }
     }
-    
-}
+  }
+
+  if (!params || !params.slug || typeof params.slug !== 'string') {
+      return {
+          notFound: true,
+      };
+  }
+
+  const { slug } = params;
+
+  if (slug === "favicon.png") {
+      return {
+          notFound: true,
+      };
+  }
+
+  
+
+  let post;
+
+  try {
+      const prismic = createClient(req);
+      const response = await prismic.getByUID('publication', slug, {});
+
+      post = {
+          slug,
+          title: RichText.asText(response.data.title),
+          content: RichText.asHtml(response.data.content),
+          updatedAt: new Date(response.last_publication_date).toLocaleDateString('pt-BR', {
+              day: '2-digit',
+              month: 'long',
+              year: 'numeric'
+          })
+      };
+  } catch (error) {
+      console.error("Erro ao buscar post:", error);
+      return {
+          notFound: true,
+      };
+  }
+
+  return {
+      props: {
+          post
+      }
+  };
+};

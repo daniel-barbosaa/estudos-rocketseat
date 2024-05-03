@@ -4,12 +4,9 @@ import { User } from "next-auth"
 import NextAuth from "next-auth"
 import GithubProvider from "next-auth/providers/github"
 import {fauna} from '../../../services/fauna'
-
-
+import { Session } from "next-auth"
 
 export const authOptions = {
-  // Configure one or more authentication providers
-  
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_CLIENT_ID || "",
@@ -20,15 +17,50 @@ export const authOptions = {
         },
       },
     }),
-    // ...add more providers here
   ],
 
+
   callbacks: {
-    async signIn({ user }: { user: User }) {
-      console.log(user)
-
+    async session({session} : {session: Session} ) {
+      
       try {
+      const userEmail = session.user?.email ?? ''
+      const userSubscriptionActive = await fauna.query(
+        q.Get(
+          q.Intersection([ 
+            q.Match(
+              q.Index('subscription_by_user_ref'),
+              q.Select(
+                "ref",
+                q.Get(
+                  q.Match(
+                    q.Index('user_by_email'),
+                    q.Casefold(userEmail)
+                  )
+                )
+              )
+            ),
+            q.Match(
+              q.Index('subscription_by_status'),
+              "active"
+            )
+          ])
+        )
+      )
 
+      return {
+        ...session,
+        activeSubscription: userSubscriptionActive
+      }
+      }catch {
+        return {
+          ...session,
+          activeSubscription: null
+        }
+      }
+    },
+    async signIn({ user }: { user: User }) {
+      try {
         const { email } = user;
 
         if (!user.email) {
@@ -62,23 +94,5 @@ export const authOptions = {
     }
   } 
 }
-
-// q.If(
-//   q.Not(
-//     q.Exists(
-//       q.Ref(q.Collection('users'),user.email)),
-//   ),
-//   q.Create(
-//     q.Collection('users'),
-//     {data: {email} }
-//   ), 
-//   q.Get( // Senão
-//     q.Match(
-//       q.Index('user_by_email'),
-//       q.Casefold(user.email)
-//     )
-//   )
-// )
-
 
 export default NextAuth(authOptions)
