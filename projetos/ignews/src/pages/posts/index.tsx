@@ -28,8 +28,8 @@ export default  function Posts({posts}: PostsProps) {
          <main className={style.container}>
             <div className={style.post_list}>
                {posts.map(post => (
-                <Link  href={`/posts/${post.slug}`} key={post.slug} legacyBehavior>
-                 <a >
+                <Link href={`/posts/${post.slug}`} key={post.slug} legacyBehavior>
+                 <a>
                  <time>
                      {post.updatedAt}
                  </time>
