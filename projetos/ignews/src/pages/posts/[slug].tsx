@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next"
-import { getSession } from "next-auth/react"
+import { getSession, useSession } from "next-auth/react"
 import { createClient } from "../../services/prismicio"
 import { RichText } from "prismic-dom"
 import Head from "next/head"
@@ -37,29 +37,51 @@ export default function Post ({post}: PostProps) {
     )
 }
 
+interface ActiveSubscribe  {
+  ref: { '@ref': any },
+  ts: number,
+  data: {
+    id: string,
+    userId: any,
+    status: string,
+    priceId: string
+  }
+}
 
+interface Session  {
+  user: {
+    name: string,
+    email: string,
+    image: string
+  },
+  expires: string,
+  activeSubscription?: ActiveSubscribe
+}
 
 
 export const getServerSideProps: GetServerSideProps = async ({ req, params }) => {
-  const  session = (await getSession({ req })) ?? {}
+  const  session = await getSession({ req }) as Session ?? {}
+  
 
+  if (!params || !params.slug || typeof params.slug !== 'string') {
+    return {
+        notFound: true,
+    };
+  }
+
+  const { slug } = params;
       if(!session.activeSubscription){
         return {
           redirect: {
-            destination: '/',
+          destination: `/posts/preview/${slug}`,
             permanent: false
           }
         }
     }
 
 
-  if (!params || !params.slug || typeof params.slug !== 'string') {
-      return {
-          notFound: true,
-      };
-  }
+ 
 
-  const { slug } = params;
 
   if (slug === "favicon.png") {
       return {

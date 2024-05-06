@@ -6,6 +6,7 @@ import GithubProvider from "next-auth/providers/github"
 import {fauna} from '../../../services/fauna'
 import { Session } from "next-auth"
 
+
 export const authOptions = {
   providers: [
     GithubProvider({
