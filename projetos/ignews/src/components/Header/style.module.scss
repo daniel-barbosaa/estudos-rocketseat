@@ -10,6 +10,7 @@
     padding: 0 2rem;
 
     display: flex;
+    justify-content:space-between;
     align-items: center;
 
     nav {
@@ -53,5 +54,13 @@
     }
     button {
         margin-left: auto;
+    }
+
+
+    .headerProfileContent {
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       gap: 1rem;
     }
 }

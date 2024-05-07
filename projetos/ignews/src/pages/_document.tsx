@@ -1,5 +1,14 @@
 import { Html, Head, Main, NextScript } from "next/document";
 
+import { extendTheme, type ThemeConfig } from '@chakra-ui/react'
+import { ColorModeScript } from '@chakra-ui/react'
+
+const config: ThemeConfig = {
+  initialColorMode: 'light',
+  useSystemColorMode: true,
+}
+const theme = extendTheme({ config })
+
 export default function Document() {
   return (
     <Html lang="en">
