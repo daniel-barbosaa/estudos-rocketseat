@@ -1,0 +1,19 @@
+.container {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.accountInfosSection {
+    background: var(--gray-850);
+    max-width: 720px;
+    margin: 5rem auto 0;
+    padding: 0.225rem 0.525rem;
+    border-radius: 8px;
+
+    
+    h1 {
+        font-size: 1.5rem;
+        font-weight: 500;
+    }
+}

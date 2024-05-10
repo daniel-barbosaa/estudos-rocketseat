@@ -7,9 +7,16 @@ import { useRouter } from 'next/router'
 import { LinkActive } from '../linkActive'
 
 import { ButtonProfile } from '../ButtonProfile'
+import { useSession } from 'next-auth/react'
 
 export function Header () {
+    const session = useSession()
     const {asPath} = useRouter()
+
+    const userIsLogged = session.data === null ? undefined : session.data
+
+
+
 
 
     return (
@@ -27,7 +34,11 @@ export function Header () {
                     </nav>
                 <div className={styles.headerProfileContent}>
                     <SignButton/>
-                    <ButtonProfile/>
+                    {userIsLogged && <ButtonProfile/>}
+                    
+                    
+    
+                   
                 </div>
                 
             </div>
