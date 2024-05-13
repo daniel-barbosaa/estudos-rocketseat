@@ -15,10 +15,6 @@ export function Header () {
 
     const userIsLogged = session.data === null ? undefined : session.data
 
-
-
-
-
     return (
         <header className={styles.headerContainer}>
             <div className={styles.headerContent}>
@@ -35,10 +31,6 @@ export function Header () {
                 <div className={styles.headerProfileContent}>
                     <SignButton/>
                     {userIsLogged && <ButtonProfile/>}
-                    
-                    
-    
-                   
                 </div>
                 
             </div>
