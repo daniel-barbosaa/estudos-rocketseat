@@ -38,8 +38,6 @@ const Subscribe =  async (req: NextApiRequest, resp: NextApiResponse) => {
         // Pegando o customerId no banco do usuário
         let customerId = user.data.stripe_customer_id 
 
-        console.log(customerId)
-
         // Se não existe um usuário com este customerId, então cria um no Stripe e atualiza o customerId do banco com o customerId do stripe 
         if(!customerId){
             const stripeCustomer = await stripe.customers.create({

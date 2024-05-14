@@ -27,9 +27,7 @@ export async function saveSubscription(subscriptionId: string, customerId: strin
         status: subscription.status,
         priceId: subscription.items.data[0].price.id,
     }
-
-    console.log(subscriptionData)
-
+    
     if(createAction){
         await fauna.query(
             q.Create(
@@ -38,7 +36,8 @@ export async function saveSubscription(subscriptionId: string, customerId: strin
             )
         )
     }else{
-        const teste = await fauna.query(
+        // const teste =
+        await fauna.query(
             q.Replace(
                 q.Select(
                     "ref",

@@ -10,10 +10,12 @@ import styles from './styles.module.scss'
 
 interface CancelButtonProps {
     isOpen: boolean,
-    onClose: () => void
+    onClose: () => void,
+    onCancelSubscription: () => void
 }
 
-export function CancelSubscriptionModal({isOpen, onClose}: CancelButtonProps) {
+
+export function CancelSubscriptionModal({isOpen, onClose , onCancelSubscription}: CancelButtonProps, ) {
     return (
       <>
         <Modal isOpen={isOpen} onClose={onClose}>
@@ -26,10 +28,10 @@ export function CancelSubscriptionModal({isOpen, onClose}: CancelButtonProps) {
               <Button color="#29292e"  mr={3} onClick={onClose}>
                 Cancel
               </Button>
-              <Button colorScheme='red'>Ok</Button>
+              <Button colorScheme='red' onClick={onCancelSubscription}>Ok</Button>
             </ModalFooter>
           </ModalContent>
         </Modal>
       </>
     )
-  }
+}
