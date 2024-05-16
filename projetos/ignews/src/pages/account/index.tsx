@@ -7,22 +7,47 @@ import {
     useDisclosure
 } from '@chakra-ui/react'
 import { api } from "../../services/api"
+import { useRouter } from 'next/router'
+
+interface ActiveSubscribe  {
+    ref: { '@ref': any },
+    ts: number,
+    data: {
+      id: string,
+      userId: any,
+      status: string,
+      priceId: string
+    }
+  }
+
+interface Session  {
+    user: {
+      name: string,
+      email: string,
+      image: string
+    },
+    expires: string,
+    activeSubscription?: ActiveSubscribe
+}
 
 export default function Account () {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const session = useSession()
+    const {data: session} = useSession() as {data: Session}
+    const router = useRouter()
+
 
     const handleCancelSubscription  = async () => {
-        const subscriptionId = 'sub_1P9udzAuruhV4Wv0aYkDhaWK'
+        const subscriptionId = session.activeSubscription?.data.id
         const response = await api.post('/cancel-subscription', {
             subscriptionId
         })
+        router.push('/')
 
         console.log(response)
     }
 
-    
-    
+    // Apresentar algo na tela quando csncelar assinatura e mudar as opcao se tiver assinatura ativa ou cancelada
+
     return (
         <>
         <Head>

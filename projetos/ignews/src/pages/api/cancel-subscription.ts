@@ -4,36 +4,26 @@ import { fauna } from "../../services/fauna";
 import {query as q} from 'faunadb'
 
 
+
 const CancelSubscribe = async (req: NextApiRequest, res: NextApiResponse ) => {
     if(req.method === 'POST'){
        const {subscriptionId} = req.body
-       console.log(subscriptionId)
-       
        if(!subscriptionId){
         return res.status(400).json({error: 'subscriptionId é preciso!'})
        }
 
        try {
-             //Criar logica para atualizar o status da subscription com o respectivo id
+            const deletedSubscription = await stripe.subscriptions.cancel(subscriptionId)
 
-            // const deletedSubscription = await stripe.subscriptions.cancel(subscriptionId)
+            const subscriptionRef = await fauna.query(
+                q.Select("ref", q.Get(q.Match(q.Index('subscription_by_id'), subscriptionId)))
+              );
 
-            const signature = await fauna.query(
-                await fauna.query(
-                    q.Select(
-                        "ref",
-                        q.Get(
-                            q.Match(
-                                q.Index('subscription_by_id',),
-                                subscriptionId
-                            )
-                        )
-                    )
-                )
+            await fauna.query(
+                q.Delete(subscriptionRef)
             )
-            console.log(signature)
-            // console.log(deletedSubscription.status)
-            // return res.status(200).json(deletedSubscription)
+        
+        return res.status(200).json(deletedSubscription)
        }catch{
         return res.status(400).json({error: 'Falha ao cancelar inscrição!'})
        }

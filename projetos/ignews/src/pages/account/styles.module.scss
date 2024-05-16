@@ -49,3 +49,15 @@
     }
     
 }
+
+.accoutSiganatureInactive {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 720px;
+    margin: 5rem auto 0;
+
+    h1 {
+        font-size: 2rem;
+    }
+}

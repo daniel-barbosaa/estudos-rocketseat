@@ -60,7 +60,7 @@ interface Session  {
 
 
 export const getServerSideProps: GetServerSideProps = async ({ req, params }) => {
-  const  session = await getSession({ req }) as Session ?? {}
+  const session = await getSession({ req }) as Session ?? {}
   
 
   if (!params || !params.slug || typeof params.slug !== 'string') {
