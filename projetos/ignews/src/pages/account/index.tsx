@@ -8,6 +8,7 @@ import {
 } from '@chakra-ui/react'
 import { api } from "../../services/api"
 import { useRouter } from 'next/router'
+import { useEffect } from "react"
 
 interface ActiveSubscribe  {
     ref: { '@ref': any },
@@ -35,6 +36,12 @@ export default function Account () {
     const {data: session} = useSession() as {data: Session}
     const router = useRouter()
 
+    const isSubscription = session?.activeSubscription
+
+
+    useEffect(() => {
+        
+    }, [isSubscription])
 
     const handleCancelSubscription  = async () => {
         const subscriptionId = session.activeSubscription?.data.id
@@ -42,7 +49,6 @@ export default function Account () {
             subscriptionId
         })
         router.push('/')
-
         console.log(response)
     }
 
@@ -59,10 +65,11 @@ export default function Account () {
                 <h1>Signatures</h1>
                 <div className={styles.subscriptionStatus}>
                     <h3>News about the React world</h3>
-                    <Badge colorScheme='green'>Active</Badge>
+                    {isSubscription ? <Badge colorScheme='green'>ACTIVE</Badge> : <Badge colorScheme='red'>CANCELED</Badge> }
                 </div>
                <div className={styles.containerCancelButton}>
-               <button className={styles.cancelaButton} onClick={onOpen} type="button">Cancel Subscription</button>
+                {isSubscription && <button className={styles.cancelaButton} onClick={onOpen} type="button">Cancel Subscription</button> }
+                
                </div>
             </section>
         </main>
