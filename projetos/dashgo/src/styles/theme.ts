@@ -19,14 +19,21 @@ const theme = extendTheme({
     }
   },
   fonts: {
-    heading: 'Roboto',
-    body: 'Roboto',
+    heading: 'Roboto, sans-serif',
+    body: 'Roboto, sans-serif',
   },
   styles: {
     global: {
       body: {
+        fontFamily: "Roboto, sans-serif",
         bg: 'gray.900',
         color: 'gray.50',
+      },
+      h2: {
+        fontFamily: "Roboto, sans-serif",
+      },
+      th: {
+        fontFamily: "Roboto, sans-serif",
       },
     },
   },

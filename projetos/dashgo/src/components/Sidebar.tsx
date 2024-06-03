@@ -33,7 +33,7 @@ export function Sidebar() {
                         </Link>
                         <Link display="flex">
                             <Icon as={RiGitMergeLine} fontSize="20"/>
-                            <Text ml="4" fontWeight="medium">Automaçã<object data="" type=""></object></Text>
+                            <Text ml="4" fontWeight="medium">Automação<object data="" type=""></object></Text>
                         </Link>
                     </Stack>
                 </Box>
