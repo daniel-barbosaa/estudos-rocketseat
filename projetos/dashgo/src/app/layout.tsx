@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Inter, Roboto } from "next/font/google";
+import { Roboto } from "next/font/google";
 import { Providers } from "./providers";
+import { SidebarProvider } from "@/contexts/SidebarDrawerContex";
 
 const roboto = Roboto({ weight: ["400", "700"], subsets: ["latin"] });
 
@@ -18,7 +19,9 @@ export default function RootLayout({
       <html lang="en">
         
         <body className={`${roboto.className}`}>
-          <Providers>{children}</Providers>
+          <SidebarProvider>
+            <Providers>{children}</Providers>
+          </SidebarProvider>
         </body>
       </html>
   );
