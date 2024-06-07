@@ -4,6 +4,7 @@ import Input from "@/components/Form/Input";
 import { Header } from "@/components/Header";
 import { Sidebar } from "@/components/Sidebar";
 import { Box, Button, Divider, Flex, HStack, Heading, Icon, SimpleGrid, VStack } from "@chakra-ui/react";
+import Link from "next/link";
 import { RiSaveLine } from "react-icons/ri";
 
 export default function CreateUser() {
@@ -27,8 +28,10 @@ export default function CreateUser() {
                     </VStack>
                     
                     <Flex mt="8" justify="flex-end">
-                        <HStack  spacing="4" >
-                            <Button  colorScheme="whiteAlpha">Cancelar</Button>
+                        <HStack  spacing="4">
+                            <Link href="/users">
+                            <Button as="a"  colorScheme="whiteAlpha">Cancelar</Button>
+                            </Link>
                             <Button colorScheme="pink" leftIcon={<Icon as={RiSaveLine}/>}>Salvar</Button>
                         </HStack>
                     </Flex>
