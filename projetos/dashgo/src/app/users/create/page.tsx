@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
+import { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { RiSaveLine } from "react-icons/ri";
 import * as yup from "yup";
@@ -48,9 +49,15 @@ export default function CreateUser() {
     resolver: yupResolver(CreateUserDataSchema),
   });
 
-  const handCreateUser: SubmitHandler<CreteUserFormData> = (data) => {
+  const handCreateUser: SubmitHandler<CreteUserFormData> = async (data) => {
+    await new Promise(resolve => setTimeout(resolve, 2000))
     console.log(data);
   };
+
+  useEffect(() => {
+    fetch('/api/users').then(response => response.json()).then(data => console.log(data)).catch(error => console.error('Error fetching users:', error))
+  })
+  
   return (
     <Box>
       <Header />
