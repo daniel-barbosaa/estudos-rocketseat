@@ -2,15 +2,13 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import { Providers } from "./providers";
 import { SidebarProvider } from "@/contexts/SidebarDrawerContex";
-import { makeServer } from "@/services/miraje/miraje";
 const roboto = Roboto({ weight: ["400", "700"], subsets: ["latin"] });
+import { makeServer } from "@/services/miraje";
+import { useEffect } from "react";
 
 
+makeServer({ environment: "development" })
 
-if (process.env.NODE_ENV === 'development') {
-  makeServer();
-  console.log('Development mode: MirageJS server started');
-}
 
 export const metadata: Metadata = {
   title: "Dashgo.",
@@ -18,14 +16,15 @@ export const metadata: Metadata = {
 };
 
 
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
       <html lang="en">
-        
         <body className={`${roboto.className}`}>
           <SidebarProvider>
             <Providers>{children}</Providers>

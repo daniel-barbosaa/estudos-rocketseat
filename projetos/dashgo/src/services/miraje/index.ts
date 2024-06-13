@@ -7,8 +7,9 @@ type User = {
     created_at: string
 }
 
-export function makeServer(){
-    const server = createServer({
+export function makeServer({ environment = "development" } = {}){
+    let server = createServer({
+        environment,
         models: {
             user: Model.extend<Partial<User>>({})
         },

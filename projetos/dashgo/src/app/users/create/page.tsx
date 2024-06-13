@@ -20,6 +20,9 @@ import { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { RiSaveLine } from "react-icons/ri";
 import * as yup from "yup";
+import { api } from "@/services/api";
+import { makeServer } from "@/services/miraje";
+
 
 type CreteUserFormData = {
   name: string;
@@ -55,7 +58,11 @@ export default function CreateUser() {
   };
 
   useEffect(() => {
-    fetch('/api/users').then(response => response.json()).then(data => console.log(data)).catch(error => console.error('Error fetching users:', error))
+    const busca = async () => {
+      const response = await api.get('/users')
+    console.log(response.data)
+    }
+    busca()
   })
   
   return (
