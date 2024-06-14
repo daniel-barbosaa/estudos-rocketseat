@@ -1,5 +1,4 @@
 "use client";
-
 import { Input } from "@/components/Form/Input";
 import { Header } from "@/components/Header";
 import { Sidebar } from "@/components/Sidebar";
@@ -16,12 +15,10 @@ import {
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
-import { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { RiSaveLine } from "react-icons/ri";
 import * as yup from "yup";
-import { api } from "@/services/api";
-import { makeServer } from "@/services/miraje";
+
 
 
 type CreteUserFormData = {
@@ -57,14 +54,6 @@ export default function CreateUser() {
     console.log(data);
   };
 
-  useEffect(() => {
-    const busca = async () => {
-      const response = await api.get('/users')
-    console.log(response.data)
-    }
-    busca()
-  })
-  
   return (
     <Box>
       <Header />
@@ -110,11 +99,10 @@ export default function CreateUser() {
               />
             </SimpleGrid>
           </VStack>
-
           <Flex mt="8" justify="flex-end">
             <HStack spacing="4">
               <Link href="/users">
-                <Button colorScheme="whiteAlpha">
+                <Button as="a" colorScheme="whiteAlpha">
                   Cancelar
                 </Button>
               </Link>

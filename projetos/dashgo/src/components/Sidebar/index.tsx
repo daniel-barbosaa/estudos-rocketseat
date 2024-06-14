@@ -1,4 +1,4 @@
-"use client";
+
 import { Box, Drawer, DrawerContent, DrawerOverlay, useBreakpointValue, DrawerCloseButton, DrawerHeader, DrawerBody } from "@chakra-ui/react";
 import { SidebarNav } from "./SidebarNav";
 import { useSidebarDrawer } from "@/contexts/SidebarDrawerContex";

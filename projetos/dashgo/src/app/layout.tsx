@@ -4,7 +4,7 @@ import { Providers } from "./providers";
 import { SidebarProvider } from "@/contexts/SidebarDrawerContex";
 const roboto = Roboto({ weight: ["400", "700"], subsets: ["latin"] });
 import { makeServer } from "@/services/miraje";
-import { useEffect } from "react";
+
 
 
 makeServer({ environment: "development" })

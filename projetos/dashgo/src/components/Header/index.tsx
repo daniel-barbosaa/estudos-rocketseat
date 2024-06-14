@@ -1,4 +1,3 @@
-'use client'
 import { Flex, Icon, IconButton, useBreakpointValue} from "@chakra-ui/react"
 import { Profile } from "./Profile"
 import { NotificatioNav } from "./NotificationNav"
