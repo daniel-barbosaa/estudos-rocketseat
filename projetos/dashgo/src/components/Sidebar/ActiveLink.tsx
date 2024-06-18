@@ -15,13 +15,9 @@ export function ActiveLink({children, shoudlMatchExactHref = false, ...rest}: Ac
     if(shoudlMatchExactHref && (path === rest.href || path === rest.as)){
         isActive = true
     } 
-
     if(!shoudlMatchExactHref && (path.startsWith(String(rest.href)) || path.startsWith(String(rest.as)))) {
         isActive = true
     }
-
-    
-
     return (
         <Link {...rest}>
             {cloneElement(children, {

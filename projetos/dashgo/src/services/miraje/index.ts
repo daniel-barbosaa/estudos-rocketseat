@@ -7,7 +7,7 @@ type User = {
     created_at: string
 }
 
-export function makeServer({ environment = "development" } = {}){
+export function makeServer({ environment = "teste" } = {}){
     let server = createServer({
         environment,
         models: {
@@ -32,14 +32,14 @@ export function makeServer({ environment = "development" } = {}){
             server.createList('user', 10)
         },
         routes() {
-            this.namespace = 'api'
+            this.namespace = '/api'
             this.timing = 750
 
             this.get("/users")
             this.post("/users")
-
-            this.namespace = ''
             this.passthrough()
+            this.namespace = ''
+           
         }
     })
 
