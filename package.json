@@ -14,6 +14,7 @@
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+<<<<<<< HEAD
     "@hookform/resolvers": "^3.6.0",
     "@tanstack/react-query": "^5.45.0",
     "apexcharts": "^3.49.1",
@@ -32,12 +33,29 @@
     "@faker-js/faker": "^8.4.1",
     "@tanstack/react-query-devtools": "^5.45.1",
     "@types/faker": "^6.6.9",
+=======
+    "@tanstack/react-query": "^5.45.1",
+    "apexcharts": "^3.49.1",
+    "framer-motion": "^11.2.6",
+    "install": "^0.13.0",
+    "next": "14.2.3",
+    "react": "^18",
+    "react-apexcharts": "^1.4.1",
+    "react-dom": "^18",
+    "react-icons": "^5.2.1"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
+>>>>>>> 9098ce062b7c786c8063731df259d4652e885888
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
+<<<<<<< HEAD
     "faker": "^6.6.6",
+=======
+>>>>>>> 9098ce062b7c786c8063731df259d4652e885888
     "miragejs": "^0.2.0-alpha.1",
     "typescript": "^5"
   }

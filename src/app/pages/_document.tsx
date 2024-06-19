@@ -1,5 +1,9 @@
 import Document, { Head, Html, Main, NextScript } from "next/document";
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9098ce062b7c786c8063731df259d4652e885888
 class MyDocument extends Document {
     render () {
         return (

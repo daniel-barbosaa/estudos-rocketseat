@@ -72,7 +72,11 @@ export default function Dashboard () {
                 <Sidebar/>
                 <SimpleGrid flex="1" gap="4" minChildWidth="320px" alignContent="flex-start">
                     <Box
+<<<<<<< HEAD
                     p={["6","8"]}
+=======
+                    p="8"
+>>>>>>> 9098ce062b7c786c8063731df259d4652e885888
                     bg="gray.800"
                     borderRadius={8}
                     pb="4"
@@ -86,7 +90,11 @@ export default function Dashboard () {
                         <Chart options={options} series={series} type="area" height={160}  width="100%"/>
                     </Box>
                     <Box
+<<<<<<< HEAD
                     p={["6","8"]}
+=======
+                    p="8"
+>>>>>>> 9098ce062b7c786c8063731df259d4652e885888
                     bg="gray.800"
                     borderRadius={8}
                     pb="4"

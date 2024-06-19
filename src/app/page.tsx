@@ -1,5 +1,6 @@
 'use client'
 import {Button, Flex, Stack} from '@chakra-ui/react'
+<<<<<<< HEAD
 import { useForm, SubmitHandler } from "react-hook-form"
 import { Input } from '@/components/Form/Input'
 import * as yup from 'yup'
@@ -32,6 +33,19 @@ export default function SignIn () {
             <Stack spacing={4}>
                <Input  type="email" label="E-mail" {...register('email')} error={errors.email?.message}/>
                <Input type="password" label='Senha' {...register('password')} error={errors.password?.message}/>
+=======
+
+import Input from '@/components/Form/Input'
+
+
+export default function SignIn () {
+    return (
+       <Flex w="100vw" h="100vh" align="center" justify="center">
+        <Flex as="form" w="100%" maxW={360} p={8} bg="gray.800" borderRadius={8} flexDirection="column">
+            <Stack spacing={4}>
+               <Input type="email" name="email" label="E-mail"/>
+               <Input  type="password" name="password" label='Senha'/>
+>>>>>>> 9098ce062b7c786c8063731df259d4652e885888
             </Stack>
             <Button colorScheme='pink' type='submit' mt={6} size="lg">Entrar</Button>
         </Flex>
